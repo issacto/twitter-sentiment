@@ -1,3 +1,4 @@
 kafka-python
 textblob
 cloudant
+nltk

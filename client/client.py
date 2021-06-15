@@ -9,6 +9,8 @@ from cloudant.error import CloudantException
 from cloudant.result import Result, ResultByKey
 from kafka import KafkaConsumer
 from textblob import TextBlob
+import nltk
+nltk.download('punkt')
 
 ###IBM
 serviceUsername = "apikey-v2-1ksc248nvxsw62p2lpx0si3a46boprzh5tpmlxexlhvj"
@@ -24,6 +26,8 @@ database = client['beat-ibm']
 ###Kafka
 def parse_object_pairs(pairs):
     return pairs
+
+KAFKA_VERSION = (0, 10)
 topic_name = 'test-topic'
 tweets = "0"
 decoder = JSONDecoder(object_pairs_hook=parse_object_pairs)
@@ -33,13 +37,13 @@ ratingPer200 = 0
 
 consumer = KafkaConsumer(
     topic_name,
-     bootstrap_servers=['localhost:53628'],
+     bootstrap_servers=['172.16.67.197:53628'],
      auto_offset_reset='latest',
      enable_auto_commit=True,
      auto_commit_interval_ms =  5000,
      fetch_max_bytes = 128,
      max_poll_records = 100,
-
+     api_version=KAFKA_VERSION,
      value_deserializer=lambda x: json.loads(x.decode('utf-8')))
 
  
@@ -54,7 +58,9 @@ def getSentiment(arrayList):
             ii=0
             rates =0
             for sentence in blob.sentences:
-                rates = rates +sentence.sentiment.polarity
+                currentRate = sentence.sentiment.polarity * 100
+                print(currentRate)
+                rates = rates +currentRate
                 ii= ii+1
             i = i+1
             counter += counter + rates/ii
@@ -67,7 +73,7 @@ for message in consumer:
     rating = getSentiment(tweetsObj)
     ratingPer200 = ratingPer200+rating
     index= index+1
-    if(index==1):
+    if(index==200):
         averageRating = ratingPer200/index
         t = time()
         jsonDocument ={

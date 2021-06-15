@@ -6,3 +6,5 @@ bin/zkServer.sh start
 
 cd kafka 
 docker-compose up -d
+docker build -t client .
+docker build -t producer .

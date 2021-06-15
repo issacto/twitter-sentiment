@@ -12,7 +12,10 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 from kafka import KafkaProducer
 
-producer = KafkaProducer(bootstrap_servers='localhost:53628') #Same port as your Kafka server
+
+KAFKA_VERSION = (0, 10)
+
+producer = KafkaProducer(bootstrap_servers='172.16.67.197:53628',api_version=KAFKA_VERSION) #Same port as your Kafka server
 
 
 topic_name = "test-topic"
