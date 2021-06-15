@@ -1,2 +1,3 @@
-json
-kafka
+kafka-python
+textblob
+cloudant

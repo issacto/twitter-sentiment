@@ -11,7 +11,8 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 from kafka import KafkaProducer
-producer = KafkaProducer(bootstrap_servers='localhost:51587') #Same port as your Kafka server
+
+producer = KafkaProducer(bootstrap_servers='localhost:53628') #Same port as your Kafka server
 
 
 topic_name = "test-topic"
