@@ -26,3 +26,7 @@ docker build -t consumer .
 ```
 
 ### Website
+```
+cd website
+docker-compose up -d --build
+```

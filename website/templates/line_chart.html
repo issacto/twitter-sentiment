@@ -9,6 +9,10 @@
 
 <body>
     <h1>{{ title }}</h1>
+    <h3>Current Sentiment: {{currentSentiment}}</h3>
+    <br/>
+    <p>Latest ten record: </p>
+    <br/>
 
     <canvas id="chart" width="600" height="400"></canvas>
     <script>
@@ -57,7 +61,7 @@
         scaleOverride: true,
         scaleSteps: steps,
         scaleStepWidth: Math.ceil(max / steps),
-        scaleStartValue: 0,
+        scaleStartValue: -60,
         scaleShowVerticalLines: true,
         scaleShowGridLines : true,
         barShowStroke : true,
