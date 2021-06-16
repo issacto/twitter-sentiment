@@ -5,7 +5,7 @@
 * IBM Cloudant Database
 * Flask
 * Docker = container
-* Kuubernetes (k8s) = container orchestration
+* IBM Kubernetes (k8s) = container orchestration
 
 ### Kafka
 ```
@@ -19,10 +19,10 @@ cd producer
 docker build -t producer .
 ```
 
-### Client
+### Consumer
 ```
 cd client
-docker build -t client .
+docker build -t consumer .
 ```
 
 ### Website
