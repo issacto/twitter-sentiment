@@ -1,6 +1,5 @@
 
 import json
-
 import os
 from json import JSONDecoder
 from time import time, ctime
@@ -17,7 +16,6 @@ serviceUsername = "apikey-v2-1ksc248nvxsw62p2lpx0si3a46boprzh5tpmlxexlhvj"
 servicePassword = "bef4c521e8e6b9c4a693d4230c2efe81"
 serviceURL = "https://apikey-v2-1ksc248nvxsw62p2lpx0si3a46boprzh5tpmlxexlhvj:bef4c521e8e6b9c4a693d4230c2efe81@efccbbdb-285e-4cca-8ad2-7a45355e860b-bluemix.cloudantnosqldb.appdomain.cloud"
 
-###IBM
 client = Cloudant(serviceUsername, servicePassword, url=serviceURL)
 client.connect()
 database = client['beat-ibm']
@@ -34,7 +32,6 @@ decoder = JSONDecoder(object_pairs_hook=parse_object_pairs)
 index = 0
 ratingPer200 = 0
 
-
 consumer = KafkaConsumer(
     topic_name,
      bootstrap_servers=['172.16.67.197:53628'],
@@ -46,13 +43,11 @@ consumer = KafkaConsumer(
      api_version=KAFKA_VERSION,
      value_deserializer=lambda x: json.loads(x.decode('utf-8')))
 
- 
 def getSentiment(arrayList):
     counter = 0 
     i = 0
     for pair in arrayList:
         if(pair[0]=="text"):
-            print("Hallo")
             print(pair[1])
             blob = TextBlob(pair[1])
             ii=0
@@ -64,6 +59,8 @@ def getSentiment(arrayList):
                 ii= ii+1
             i = i+1
             counter += counter + rates/ii
+    if(i==0):
+        return -999999
     return counter/i
 
 for message in consumer:
@@ -71,9 +68,10 @@ for message in consumer:
     tweetsObj = decoder.decode(tweets)
     #print(tweetsObj)
     rating = getSentiment(tweetsObj)
-    ratingPer200 = ratingPer200+rating
-    index= index+1
-    if(index==200):
+    if(rating!=-999999):
+        ratingPer200 = ratingPer200+rating
+        index= index+1
+    if(index==10):
         averageRating = ratingPer200/index
         t = time()
         jsonDocument ={
@@ -81,7 +79,6 @@ for message in consumer:
             "sentiment":averageRating
         }
         database.create_document(jsonDocument)
-        print("Something")
         index = 0
         ratingPer200 = 0
 
