@@ -9,6 +9,8 @@ from cloudant.result import Result, ResultByKey
 from kafka import KafkaConsumer
 from textblob import TextBlob
 import nltk
+from datetime import datetime
+
 nltk.download('punkt')
 
 ###IBM
@@ -18,7 +20,7 @@ serviceURL = "https://apikey-v2-1ksc248nvxsw62p2lpx0si3a46boprzh5tpmlxexlhvj:bef
 
 client = Cloudant(serviceUsername, servicePassword, url=serviceURL)
 client.connect()
-database = client['beat-ibm']
+database = client['ibm-sentiment']
 
 
 ###Kafka
@@ -73,9 +75,15 @@ for message in consumer:
         index= index+1
     if(index==10):
         averageRating = ratingPer200/index
+        now = datetime.now()
+        timestamp = datetime.timestamp(now)
         t = time()
+        _id = "12345:"+ str (timestamp)
+        currentTime = ctime(t)
+        stringAverageRating = str(averageRating)
         jsonDocument ={
-            "time":ctime(t),
+            '_id': _id,
+            "time":currentTime,
             "sentiment":averageRating
         }
         database.create_document(jsonDocument)
