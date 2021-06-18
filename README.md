@@ -31,7 +31,7 @@ docker-compose up -d --build
 
 ## Next steps
 * Change the topic in the producer python file
-* Deploy all the microservices on IBM Kubernetes 
+* Deploy all the microservices on Kubernetes 
 
 ## Example 
 * ->localhost:5000
