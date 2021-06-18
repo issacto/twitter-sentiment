@@ -1,11 +1,9 @@
-# IBM stock sentiment visualisation
+# Tweeter sentiment visualisation
 
 * Tweet API
-* Kafka = data streaming 
+* Kafka = (Data streaming)
 * IBM Cloudant Database
-* Flask
-* Docker = container
-* IBM Kubernetes (k8s) = container orchestration
+* Docker
 
 ### Kafka
 ```
@@ -21,7 +19,7 @@ docker build -t producer .
 
 ### Consumer
 ```
-cd client
+cd consumer
 docker build -t consumer .
 ```
 
@@ -30,3 +28,9 @@ docker build -t consumer .
 cd website
 docker-compose up -d --build
 ```
+
+## Next steps
+* Deploy all the microservices on IBM Kubernetes 
+
+## Example 
+<img src="./display.png" width="550px" />

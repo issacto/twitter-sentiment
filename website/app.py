@@ -4,13 +4,17 @@ from cloudant.error import CloudantException
 from cloudant.result import Result, ResultByKey,QueryResult
 from cloudant.query import Query
 import os
+import json
 
 app = Flask(__name__)
 
+jsonFile = open('secrets.json')
+data = json.load(jsonFile)
 ###IBM
-serviceUsername = "apikey-v2-1ksc248nvxsw62p2lpx0si3a46boprzh5tpmlxexlhvj"
-servicePassword = "bef4c521e8e6b9c4a693d4230c2efe81"
-serviceURL = "https://apikey-v2-1ksc248nvxsw62p2lpx0si3a46boprzh5tpmlxexlhvj:bef4c521e8e6b9c4a693d4230c2efe81@efccbbdb-285e-4cca-8ad2-7a45355e860b-bluemix.cloudantnosqldb.appdomain.cloud"
+serviceUsername =  data["serviceUsername"]
+servicePassword =  data["servicePassword"]
+serviceURL =  data["serviceURL"]
+
 client = Cloudant(serviceUsername, servicePassword, url=serviceURL)
 client.connect()
 database = client['ibm-sentiment']

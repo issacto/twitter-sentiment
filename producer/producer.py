@@ -1,21 +1,21 @@
-
-"""API ACCESS KEYS"""
-BEAERTOKEN = "AAAAAAAAAAAAAAAAAAAAANp%2BQgEAAAAAqrd6Qj3sqFl6Liih6pkNOGcaQP8%3DInpC4U0sNpbVcBsxmcCCfuKJSJjcXbVgLbASVXfOeTEGk128kD"
-access_token = "1403935042703790084-LfYIaeK595Lsi4b8uQteNuKfYDt1jq"
-access_token_secret = "xAo4Ji6qzYS1TsjM4E1GUgEOLINRbpm4CpPTMoYdWUe2L"
-consumer_key = "NalWCyPU1TgZx2U9LRJhxSGVG"
-consumer_secret = "zNrnv0lRrPLmb788cClw4hzsaMkPyHMqCls8H6YrkXaa1akt8H"
-
-
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 from kafka import KafkaProducer
+import json 
 
+jsonFile = open('secrets.json')
+data = json.load(jsonFile)
+"""API ACCESS KEYS"""
+BEAERTOKEN = data["BEAERTOKEN"]
+access_token = data["access_token"]
+access_token_secret = data["access_token_secret"]
+consumer_key = data["consumer_key"]
+consumer_secret = data["consumer_secret"]
 
 KAFKA_VERSION = (0, 10)
 
-producer = KafkaProducer(bootstrap_servers='172.16.67.197:53628',api_version=KAFKA_VERSION) #Same port as your Kafka server
+producer = KafkaProducer(bootstrap_servers='172.16.67.197:52788',api_version=KAFKA_VERSION) #Same port as your Kafka server
 
 
 topic_name = "test-topic"

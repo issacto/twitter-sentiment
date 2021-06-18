@@ -1,4 +1,3 @@
-
 import json
 import os
 from json import JSONDecoder
@@ -10,13 +9,15 @@ from kafka import KafkaConsumer
 from textblob import TextBlob
 import nltk
 from datetime import datetime
-
+import json
 nltk.download('punkt')
 
+jsonFile = open('secrets.json')
+data = json.load(jsonFile)
 ###IBM
-serviceUsername = "apikey-v2-1ksc248nvxsw62p2lpx0si3a46boprzh5tpmlxexlhvj"
-servicePassword = "bef4c521e8e6b9c4a693d4230c2efe81"
-serviceURL = "https://apikey-v2-1ksc248nvxsw62p2lpx0si3a46boprzh5tpmlxexlhvj:bef4c521e8e6b9c4a693d4230c2efe81@efccbbdb-285e-4cca-8ad2-7a45355e860b-bluemix.cloudantnosqldb.appdomain.cloud"
+serviceUsername =  data["serviceUsername"]
+servicePassword =  data["servicePassword"]
+serviceURL =  data["serviceURL"]
 
 client = Cloudant(serviceUsername, servicePassword, url=serviceURL)
 client.connect()
@@ -36,7 +37,7 @@ ratingPer200 = 0
 
 consumer = KafkaConsumer(
     topic_name,
-     bootstrap_servers=['172.16.67.197:53628'],
+     bootstrap_servers=['172.16.67.197:52788'],
      auto_offset_reset='latest',
      enable_auto_commit=True,
      auto_commit_interval_ms =  5000,

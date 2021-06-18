@@ -1,2 +1,6 @@
 .vscode/
 producer/.vscode/
+/secrets.json
+/consumer/secrets.json
+/producer/secrets.json
+/website/secrets.json
