@@ -33,6 +33,6 @@ docker-compose up -d --build
 * Deploy all the microservices on IBM Kubernetes 
 
 ## Example 
-<div style="text-align:center">
+<p align="center">
     <img src="./display.png" width="550px" />
-</div>
+</p>
