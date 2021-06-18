@@ -1,7 +1,7 @@
 # Twitter sentiment visualisation
 
 * Tweet API
-* Kafka = (Data streaming)
+* Kafka (Data streaming)
 * IBM Cloudant Database
 * Docker
 
