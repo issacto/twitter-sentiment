@@ -1,4 +1,4 @@
-# Tweeter sentiment visualisation
+# Twitter sentiment visualisation
 
 * Tweet API
 * Kafka = (Data streaming)
@@ -30,9 +30,11 @@ docker-compose up -d --build
 ```
 
 ## Next steps
+* Change the topic in the producer python file
 * Deploy all the microservices on IBM Kubernetes 
 
 ## Example 
+* ->localhost:5000
 <p align="center">
     <img src="./display.png" width="550px" />
 </p>
